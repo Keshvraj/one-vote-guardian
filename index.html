@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Guardian | Secure Election Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .voter-card:hover { transform: translateY(-5px); transition: 0.3s; }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-100 font-sans leading-normal tracking-normal">
+
+    <nav class="sticky top-0 z-50 bg-slate-800 border-b border-slate-700 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-shield-voter text-blue-500 text-2xl"></i>
+            <span class="text-xl font-bold tracking-tighter">VOTE<span class="text-blue-500">GUARDIAN</span></span>
+        </div>
+        <div class="hidden md:flex space-x-8 items-center">
+            <a href="#dashboard" class="hover:text-blue-400">Dashboard</a>
+            <a href="#ballot" class="hover:text-blue-400">Live Ballot</a>
+            <a href="#audit" class="hover:text-blue-400">Audit Logs</a>
+            <button class="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-semibold transition">Admin Login</button>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8">
+        
+        <section id="dashboard" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="glass-morphism p-6 rounded-xl">
+                <p class="text-gray-400 text-sm uppercase">Total Registered</p>
+                <h3 class="text-3xl font-bold">1,240,500</h3>
+                <div class="text-green-400 text-xs mt-2"><i class="fas fa-arrow-up"></i> 12% from last term</div>
+            </div>
+            <div class="glass-morphism p-6 rounded-xl">
+                <p class="text-gray-400 text-sm uppercase">Votes Cast</p>
+                <h3 class="text-3xl font-bold text-blue-400">856,211</h3>
+                <div class="w-full bg-gray-700 h-2 rounded-full mt-3">
+                    <div class="bg-blue-500 h-2 rounded-full" style="width: 69%"></div>
+                </div>
+            </div>
+            <div class="glass-morphism p-6 rounded-xl">
+                <p class="text-gray-400 text-sm uppercase">Integrity Score</p>
+                <h3 class="text-3xl font-bold text-green-500">99.9%</h3>
+                <p class="text-xs mt-2 text-gray-500">Blockchain Verified</p>
+            </div>
+            <div class="glass-morphism p-6 rounded-xl">
+                <p class="text-gray-400 text-sm uppercase">Time Remaining</p>
+                <h3 class="text-3xl font-bold text-red-400">08:42:15</h3>
+                <p class="text-xs mt-2 text-gray-500">Polls closing soon</p>
+            </div>
+        </section>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <section id="ballot" class="lg:w-2/3">
+                <h2 class="text-2xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-poll-h mr-3 text-blue-500"></i> Active Election: National Executive 2026
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="voter-card glass-morphism p-6 rounded-2xl flex items-center justify-between border-l-4 border-blue-500">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center text-2xl font-bold">JD</div>
+                            <div>
+                                <h4 class="text-lg font-bold">Jane Doe</h4>
+                                <p class="text-sm text-gray-400">Progressive Alliance Party</p>
+                            </div>
+                        </div>
+                        <button onclick="castVote('Jane Doe')" class="bg-transparent border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white px-6 py-2 rounded-full transition">Select</button>
+                    </div>
+
+                    <div class="voter-card glass-morphism p-6 rounded-2xl flex items-center justify-between border-l-4 border-red-500">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center text-2xl font-bold">JS</div>
+                            <div>
+                                <h4 class="text-lg font-bold">John Smith</h4>
+                                <p class="text-sm text-gray-400">Conservative Unity Group</p>
+                            </div>
+                        </div>
+                        <button onclick="castVote('John Smith')" class="bg-transparent border border-red-500 hover:bg-red-500 text-red-500 hover:text-white px-6 py-2 rounded-full transition">Select</button>
+                    </div>
+                </div>
+            </section>
+
+            <aside id="audit" class="lg:w-1/3">
+                <div class="glass-morphism rounded-2xl p-6 h-full">
+                    <h2 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-fingerprint mr-3 text-green-500"></i> Audit Stream
+                    </h2>
+                    <div id="audit-logs" class="space-y-4 text-xs font-mono overflow-y-auto max-h-[500px]">
+                        <div class="p-2 border-b border-slate-700 text-gray-400">
+                            [09:21:04] Block #8821 verified by Node-7
+                        </div>
+                        <div class="p-2 border-b border-slate-700 text-green-400">
+                            [09:21:45] Encrypted ballot received (hash: 0x4f...a2)
+                        </div>
+                        <div class="p-2 border-b border-slate-700 text-gray-400">
+                            [09:22:10] Voter ID check: Verified (Biometric)
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        function castVote(candidate) {
+            const confirmVote = confirm(`Are you sure you want to cast your digital signature for ${candidate}? This action is irreversible on the ledger.`);
+            if(confirmVote) {
+                alert("Vote Secured! Hash generated: " + Math.random().toString(36).substring(2, 15));
+                // In a real app, this would trigger an AJAX call to a backend
+            }
+        }
+        
+        // Simulating live audit logs
+        setInterval(() => {
+            const logs = document.getElementById('audit-logs');
+            const newLog = document.createElement('div');
+            newLog.className = "p-2 border-b border-slate-700 text-blue-300 animate-pulse";
+            newLog.innerHTML = `[${new Date().toLocaleTimeString()}] New encrypted packet finalized.`;
+            logs.prepend(newLog);
+            if(logs.children.length > 15) logs.lastChild.remove();
+        }, 5000);
+    </script>
+</body>
+</html>
